@@ -90,4 +90,13 @@ class UserController extends Controller
 
         return ResponseFormatter::success($token, 'Token Revoked'); //isi $token berupa boolean
     }
+
+    public function updateProfile(Request $request){
+        $data = $request->all(); //ini ada banyak yang diperluin contoh 'name',password,houseNumber,dll,
+        
+        $user = Auth::user();
+         $user->update($data);
+         return ResponseFormatter::success($user, 'Profile Updated'); //isi $token berupa boolean
+
+    }
 }
