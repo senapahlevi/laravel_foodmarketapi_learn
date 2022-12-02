@@ -84,4 +84,10 @@ class UserController extends Controller
             ],'Authenticated failed',500);
         }
     }
+
+    public function logout(Request $request){
+        $token = $request->user()->currentAccessToken()->delete(); //kondisi kan udah login maka deletes 
+
+        return ResponseFormatter::success($token, 'Token Revoked'); //isi $token berupa boolean
+    }
 }
