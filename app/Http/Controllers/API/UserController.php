@@ -23,6 +23,24 @@ class UserController extends Controller
                     'message' => 'unauthorized'
                 ],'Authenticated Failed', 500);
             }
+            //jika hash tidak sesuai maka beri error
+            $user = User::where('email',$request->email)->first();
+            if(!Hash::check($request->password, $user->password,[])){
+                throw new \Exception('Invalid credentials');
+            }
+            //jika berhasil maka loginkan
+            $tokenResult = $user->createToken('authToken')->plainTextToken;
+            return ResponseFormatter::success([
+                'access_token' => $tokenResult,
+                'token_type' => $Bearer,
+                'user' => $user,
+            ],'Authenticated');
+        }
+        catch(Exception $error){
+            return ResponseFormatter::error([
+                'message'=>'Something went to wrong',
+                'error'=>$error,
+            ],'Authenticated failed',500);
         }
     }
 }
