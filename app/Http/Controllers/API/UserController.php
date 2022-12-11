@@ -91,6 +91,13 @@ class UserController extends Controller
         return ResponseFormatter::success($token, 'Token Revoked'); //isi $token berupa boolean
     }
 
+    public function fetch(Request $request){
+        return ResponseFormatter::success(
+            $request->user(),'Data profile user berhasil diambil'
+        );
+
+    }
+
     public function updateProfile(Request $request){
         $data = $request->all(); //ini ada banyak yang diperluin contoh 'name',password,houseNumber,dll,
         
