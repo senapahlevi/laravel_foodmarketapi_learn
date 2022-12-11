@@ -106,4 +106,29 @@ class UserController extends Controller
          return ResponseFormatter::success($user, 'Profile Updated'); //isi $token berupa boolean
 
     }
+    public function updatePhoto(Request $request){
+        $validator = Validator::make($request->all(),[
+            'file' => 'required|max:2048'
+        ]); //ini ada banyak yang diperluin contoh 'name',password,houseNumber,dll,
+        
+
+        if($validator->fails())
+        {
+            return ResponseFormatter::error([
+                'error' => $validator->errors(),
+                'Update photo fails', 
+                401
+            ]);
+        }
+        if($validator->file('file'))
+        {
+            $file = $request->file->store('assets/user','public');
+            //simpan foto ke database (URLnya)
+            $user = Auth::user();
+            $user->$profile_photo_path = $file;
+            $user->update();
+        }
+         return ResponseFormatter::success([$file],'file successfully updated'); //isi $token berupa boolean
+
+    }
 }
