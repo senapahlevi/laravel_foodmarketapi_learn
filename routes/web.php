@@ -16,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+//midtrans
+Route::get('midtrans/success',[MidtransController::class,'success']);
+Route::get('midtrans/unfinish',[MidtransController::class,'unfinish']);
+Route::get('midtrans/error',[MidtransController::class,'error']);
+ 
