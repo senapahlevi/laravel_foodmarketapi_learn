@@ -1,9 +1,11 @@
 <?php
 
 namespace App\Models;
-
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 
 class Food extends Model
 {
@@ -25,6 +27,6 @@ class Food extends Model
         return $toArray ; // used for epoch unix timestamp ex: 1601234 => become 11-june 2020 to readable for humans 
     }
     public function getPictureAtAttribute(){ //these accessor format camelcase 
-        return url('').Storage::url($this->attributes['picturePath']); // used for upload image using these format for full get url,coz default laravel isnot full get url
+        return url('').Storage::url($this->attributes['picturePath']); // used for upload image using these format for full get url,coz default laravel is not full get url/ bukan get url
     }
 }
