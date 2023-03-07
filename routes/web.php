@@ -16,6 +16,19 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });//
+
+//homepages
+Route::get('/',function(){
+    return redirect()->route('admin-dashboard');
+});
+
+//dashboard
+Route::prefix('dashboard')
+->middleware(['auth:sanctum','admin'])
+->group(function(){
+    Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
+
+});
 //midtrans
 Route::get('midtrans/success',[MidtransController::class,'success']);
 Route::get('midtrans/unfinish',[MidtransController::class,'unfinish']);
@@ -31,3 +44,28 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+
+// // Homepage
+// Route::get('/', function () {
+//     return redirect()->route('admin-dashboard');
+// });
+
+// // Dashboard
+// Route::prefix('dashboard')
+//     ->middleware(['auth:sanctum','admin'])
+//     ->group(function() {
+//         Route::get('/', [DashboardController::class, 'index'])->name('admin-dashboard');
+//         Route::resource('food', FoodController::class);
+//         Route::resource('users', UserController::class);
+
+//         Route::get('transactions/{id}/status/{status}', [TransactionController::class, 'changeStatus'])->name('transactions.changeStatus');
+//         Route::resource('transactions', TransactionController::class);
+//     });
+
+// // Midtrans Related
+// Route::get('midtrans/success', [MidtransController::class, 'success']);
+// Route::get('midtrans/unfinish', [MidtransController::class, 'unfinish']);
+// Route::get('midtrans/error', [MidtransController::class, 'error']);
+
